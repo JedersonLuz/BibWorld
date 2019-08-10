@@ -7,6 +7,7 @@ Installation
 ------------
 Download the latest version from the [GitHub repository](<https://github.com/JedersonLuz/BibWorld>), change to the main directory and run:
     
-    pip install .
+    pip install pyforms    
+    pip install pyrebase
 
-It should install most of the required libraries automatically ([pyforms](<https://pyforms.readthedocs.io/en/v4/>), [pyrebase](<https://github.com/thisbejim/Pyrebase>)).
+It must install the required libraries ([pyforms](<https://pyforms.readthedocs.io/en/v4/>), [pyrebase](<https://github.com/thisbejim/Pyrebase>)).
