@@ -1,7 +1,9 @@
-# BibWorld
+BibWorld
+========
 A simple CRUD application using Python and Firebase.
 
-## Installation
+Installation
+------------
 Download the latest version from the `GitHub repository <https://github.com/JedersonLuz/BibWorld>`_, change to the main directory and run:
 
 .. code-block:: bash
