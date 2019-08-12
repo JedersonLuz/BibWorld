@@ -10,4 +10,4 @@ Download the latest version from the [GitHub repository](<https://github.com/Jed
     pip install PyQt5
     pip install pyrebase
 
-It must install the required libraries ([pyforms](<https://pypi.org/project/PyQt5/>), [pyrebase](<https://github.com/thisbejim/Pyrebase>)).
+It must install the required libraries ([PyQt5](<https://pypi.org/project/PyQt5/>), [pyrebase](<https://github.com/thisbejim/Pyrebase>)).
