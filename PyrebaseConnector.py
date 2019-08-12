@@ -77,16 +77,27 @@ class PyrebaseConnector(object):
         self.db.child('books').child(ISBN).set(data)
 
     # Update data from a book
-    def updateBook():
-        pass
+    def updateBook(self, ISBN, title, leadAuthor, numPages, pubDate, pathImg):
+        self.storage.child('images/books/'+str(ISBN)).put(pathImg)
+
+        data = {
+            'ISBN': ISBN,
+            'title': title,
+            'leadAutor': leadAuthor,
+            'numPages': numPages,
+            'pubDate': pubDate,
+            'pathImg': 'images/books/'+str(ISBN),
+        }
+        self.db.child('books').child(ISBN).update(data)
 
     # Search for a book
-    def searchBook():
+    def searchBook(self, ISBN):
         pass
 
     # Remove a book
-    def removeBook():
-        pass
+    def removeBook(self, ISBN):
+        self.db.child('books').child(ISBN).remove()
 
 pc = PyrebaseConnector()
-# pc.createBook(ISBN=9788544103166, title='Jogador Número 1', leadAuthor='Ernet Cline', numPages=464, pubDate='8/9/2018', pathImg='images/jogador_n_1.jpg')
+# pc.updateBook(ISBN=9788544103166, title='Ready Player One', leadAuthor='Ernet Cline', numPages=464, pubDate='8/9/2018', pathImg='images/jogador_n_1.jpg')
+# pc.removeBook(9788544103166)
