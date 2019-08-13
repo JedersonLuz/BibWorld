@@ -8,6 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
 
 
 class Ui_MainWindow(object):
@@ -25,7 +26,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.button_buscar.setFont(font)
         self.button_buscar.setObjectName("button_buscar")
-        self.button_buscar.setIcon(QtGui.QIcon('/home/vitoria/Downloads/search.png'))
+        self.button_buscar.setIcon(QtGui.QIcon('icons/search.png'))
         self.button_buscar.setIconSize(QtCore.QSize(24,24))
 
         self.button_editar = QtWidgets.QPushButton(self.centralwidget)
@@ -36,7 +37,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.button_editar.setFont(font)
         self.button_editar.setObjectName("button_editar")
-        self.button_editar.setIcon(QtGui.QIcon('/home/vitoria/Downloads/edit.png'))
+        self.button_editar.setIcon(QtGui.QIcon('icons/edit.png'))
         self.button_editar.setIconSize(QtCore.QSize(24,24))
 
         self.button_add = QtWidgets.QPushButton(self.centralwidget)
@@ -47,7 +48,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.button_add.setFont(font)
         self.button_add.setObjectName("button_add")
-        self.button_add.setIcon(QtGui.QIcon('/home/vitoria/Downloads/plus.png'))
+        self.button_add.setIcon(QtGui.QIcon('icons/plus.png'))
         self.button_add.setIconSize(QtCore.QSize(24,24))
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -62,7 +63,7 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.button_remover.setFont(font)
         self.button_remover.setObjectName("button_remover")
-        self.button_remover.setIcon(QtGui.QIcon('/home/vitoria/Downloads/delete.png'))
+        self.button_remover.setIcon(QtGui.QIcon('icons/delete.png'))
         self.button_remover.setIconSize(QtCore.QSize(24,24))
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -72,7 +73,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 10, 561, 111))
         self.label.setText("")
-        pixmap = QtGui.QPixmap("Downloads/bibworld.png")
+        pixmap = QtGui.QPixmap("icons/bibworld.png")
         pixmap3 = pixmap.scaled(561, 120, QtCore.Qt.KeepAspectRatio)
         self.label.setPixmap(pixmap3)
         self.label.setObjectName("label")
@@ -92,3 +93,12 @@ class Ui_MainWindow(object):
         self.button_editar.setText(_translate("MainWindow", " Editar livro"))
         self.button_add.setText(_translate("MainWindow", " Adicionar livro"))
         self.button_remover.setText(_translate("MainWindow", " Remover livro"))
+
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    Other = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(Other)
+    Other.show()
+    sys.exit(app.exec_())
