@@ -8,9 +8,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import datetime
 
 
-class Ui_Form(object):
+class Add_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(427, 502)
@@ -41,6 +42,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_6)
         self.lineEdit_4 = QtWidgets.QLineEdit(self.widget)
         self.lineEdit_4.setObjectName("lineEdit_4")
+        self.lineEdit_4.setPlaceholderText('Informe o título do livro')
         self.verticalLayout.addWidget(self.lineEdit_4)
         self.label_2 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -52,6 +54,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_2)
         self.lineEdit = QtWidgets.QLineEdit(self.widget)
         self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit.setPlaceholderText('Informe o ISBN do livro')
         self.verticalLayout.addWidget(self.lineEdit)
         self.label_3 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -63,6 +66,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_3)
         self.lineEdit_2 = QtWidgets.QLineEdit(self.widget)
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.lineEdit_2.setPlaceholderText('Informe o autor principal do livro')
         self.verticalLayout.addWidget(self.lineEdit_2)
         self.label_5 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -74,6 +78,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_5)
         self.dateEdit = QtWidgets.QDateEdit(self.widget)
         self.dateEdit.setObjectName("dateEdit")
+        #self.dateEdit.setDateTime(QDate(2019, 8, 13))
         self.verticalLayout.addWidget(self.dateEdit)
         self.label_4 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -85,6 +90,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_4)
         self.lineEdit_3 = QtWidgets.QLineEdit(self.widget)
         self.lineEdit_3.setObjectName("lineEdit_3")
+        self.lineEdit_3.setPlaceholderText('Informe o nº de páginas do livro')
         self.verticalLayout.addWidget(self.lineEdit_3)
         self.pushButton = QtWidgets.QPushButton(self.widget)
         font = QtGui.QFont()
@@ -93,6 +99,7 @@ class Ui_Form(object):
         font.setWeight(75)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.openFileNameDialog)
         self.verticalLayout.addWidget(self.pushButton)
 
         self.retranslateUi(Form)
@@ -102,6 +109,10 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "TextLabel"))
+        pixmap = QtGui.QPixmap("icons/iconCadastrar.png")
+        pixmap3 = pixmap.scaled(400, 80, QtCore.Qt.KeepAspectRatio)
+        self.label.setPixmap(pixmap3)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.pushButton_2.setText(_translate("Form", "Concluir cadastro"))
         self.label_6.setText(_translate("Form", "Título"))
         self.label_2.setText(_translate("Form", " ISBN"))
@@ -109,3 +120,8 @@ class Ui_Form(object):
         self.label_5.setText(_translate("Form", "Data de publicação"))
         self.label_4.setText(_translate("Form", "Nºde páginas"))
         self.pushButton.setText(_translate("Form", "Escolher imagem de capa"))
+
+    def openFileNameDialog(self):
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png)")
+        print(fname)
+        return fname
