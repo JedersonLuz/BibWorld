@@ -91,7 +91,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.button_buscar.setText(_translate("MainWindow", " Buscar livro"))
         self.button_editar.setText(_translate("MainWindow", " Editar livro"))
-        self.button_add.setText(_translate("MainWindow", " Adicionar livro"))
+        self.button_add.setText(_translate("MainWindow", " Cadastrar livro"))
         self.button_remover.setText(_translate("MainWindow", " Remover livro"))
 
 
