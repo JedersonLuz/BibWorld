@@ -10,12 +10,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Form(object):
+class Add_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(427, 502)
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(10, 10, 401, 61))
+        self.label.setText("")
+        pixmap = QtGui.QPixmap("icons/bibworld.png")
+        pixmap3 = pixmap.scaled(561, 120, QtCore.Qt.KeepAspectRatio)
+        self.label.setPixmap(pixmap3)
         self.label.setObjectName("label")
         self.pushButton_2 = QtWidgets.QPushButton(Form)
         self.pushButton_2.setGeometry(QtCore.QRect(150, 450, 131, 29))
@@ -93,6 +97,7 @@ class Ui_Form(object):
         font.setWeight(75)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.openFileNameDialog)
         self.verticalLayout.addWidget(self.pushButton)
 
         self.retranslateUi(Form)
@@ -109,3 +114,8 @@ class Ui_Form(object):
         self.label_5.setText(_translate("Form", "Data de publicação"))
         self.label_4.setText(_translate("Form", "Nºde páginas"))
         self.pushButton.setText(_translate("Form", "Escolher imagem de capa"))
+
+    def openFileNameDialog(self):
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png)")
+        print(fname)
+        return fname

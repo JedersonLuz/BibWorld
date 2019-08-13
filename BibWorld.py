@@ -9,9 +9,16 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from telas import telaAdd
 
 
 class Ui_MainWindow(object):
+    def openAdd(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = telaAdd.Add_Form()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(577, 414)
@@ -50,6 +57,7 @@ class Ui_MainWindow(object):
         self.button_add.setObjectName("button_add")
         self.button_add.setIcon(QtGui.QIcon('icons/plus.png'))
         self.button_add.setIconSize(QtCore.QSize(24,24))
+        self.button_add.clicked.connect(self.openAdd)
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.button_add.setIconSize(QtCore.QSize(24,24))
