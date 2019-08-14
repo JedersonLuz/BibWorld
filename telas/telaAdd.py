@@ -8,10 +8,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import PyrebaseConnector as PC
 
 
 class Add_Form(object):
     def setupUi(self, Form):
+        self.fname = ''
         Form.setObjectName("Form")
         Form.resize(427, 502)
         self.label = QtWidgets.QLabel(Form)
@@ -29,6 +31,7 @@ class Add_Form(object):
         font.setWeight(75)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(self.registerBook)
         self.widget = QtWidgets.QWidget(Form)
         self.widget.setGeometry(QtCore.QRect(100, 108, 231, 321))
         self.widget.setObjectName("widget")
@@ -116,6 +119,9 @@ class Add_Form(object):
         self.pushButton.setText(_translate("Form", "Escolher imagem de capa"))
 
     def openFileNameDialog(self):
-        fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png)")
-        print(fname)
-        return fname
+        self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png)")
+        # print(fname)
+
+    def registerBook(self):
+        # print(self.fname)
+        PC.pc.createBook(self.lineEdit.text(), self.lineEdit_4.text(), self.lineEdit_3.text(), self.lineEdit_2.text(), self.dateEdit.text(), self.fname)

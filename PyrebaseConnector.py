@@ -76,6 +76,8 @@ class PyrebaseConnector(object):
         }
         self.db.child('books').child(ISBN).set(data)
 
+        print('Livro cadastrado!')
+
     # Update data from a book
     def updateBook(self, ISBN, title, leadAuthor, numPages, pubDate, pathImg):
         self.storage.child('images/books/'+str(ISBN)).put(pathImg)
@@ -111,4 +113,4 @@ pc = PyrebaseConnector()
 # pc.createBook(9788576051428, 'Sistemas Distribuidos', 'Tanenbaum', 416, 3/8/2007, 'images/sistemas_distribuidos.jpeg')
 # pc.updateBook(ISBN=9788544103166, title='Ready Player One', leadAuthor='Ernet Cline', numPages=464, pubDate='8/9/2018', pathImg='images/jogador_n_1.jpg')
 # pc.removeBook(9788544103166)
-pc.searchBook_ISBN(9788544103166)
+# pc.searchBook_ISBN(9788544103166)

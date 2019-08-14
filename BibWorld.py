@@ -10,6 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 from telas import telaAdd
+import PyrebaseConnector
 
 
 class Ui_MainWindow(object):
