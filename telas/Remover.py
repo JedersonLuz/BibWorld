@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 
-class RemoveWindow(object):
+class Ui_RemoveWindow(object):
     def setupUi(self, RemoveWindow):
         RemoveWindow.setObjectName("RemoveWindow")
         RemoveWindow.resize(577, 414)
