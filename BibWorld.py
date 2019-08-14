@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 from PyQt5.QtWidgets import QMessageBox
-from telas import telaAdd, Remover
+from telas import telaAdd, Remover, telaEditar
 import PyrebaseConnector
 
 
@@ -18,6 +18,12 @@ class Ui_MainWindow(object):
     def openAdd(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = telaAdd.Add_Form()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openEditar(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = telaEditar.Editar_Form()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -56,6 +62,7 @@ class Ui_MainWindow(object):
         self.button_editar.setIcon(QtGui.QIcon('icons/edit.png'))
         self.button_editar.setIconSize(QtCore.QSize(24,24))
         self.button_editar.setStyleSheet('background-color:#1f4c73')
+        self.button_editar.clicked.connect(self.openEditar)
 
         self.button_add = QtWidgets.QPushButton(self.centralwidget)
         self.button_add.setGeometry(QtCore.QRect(130, 210, 140, 30))
