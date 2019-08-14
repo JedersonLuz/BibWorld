@@ -9,13 +9,19 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-from telas import telaAdd
+from telas import telaAdd, Remover
 
 
 class Ui_MainWindow(object):
     def openAdd(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = telaAdd.Add_Form()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openRemove(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Remover.RemoveWindow()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -73,6 +79,7 @@ class Ui_MainWindow(object):
         self.button_remover.setObjectName("button_remover")
         self.button_remover.setIcon(QtGui.QIcon('icons/delete.png'))
         self.button_remover.setIconSize(QtCore.QSize(24,24))
+        self.button_remover.clicked.connect(self.openRemove)
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.button_remover.setIconSize(QtCore.QSize(24,24))
