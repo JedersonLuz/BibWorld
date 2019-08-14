@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from PyQt5.QtWidgets import QMessageBox
 from telas import telaAdd, Remover
 import PyrebaseConnector
 
@@ -42,6 +43,7 @@ class Ui_MainWindow(object):
         self.button_buscar.setObjectName("button_buscar")
         self.button_buscar.setIcon(QtGui.QIcon('icons/search.png'))
         self.button_buscar.setIconSize(QtCore.QSize(24,24))
+        self.button_buscar.setStyleSheet('background-color:#1f4c73')
 
         self.button_editar = QtWidgets.QPushButton(self.centralwidget)
         self.button_editar.setGeometry(QtCore.QRect(320, 290, 140, 30))
@@ -53,6 +55,7 @@ class Ui_MainWindow(object):
         self.button_editar.setObjectName("button_editar")
         self.button_editar.setIcon(QtGui.QIcon('icons/edit.png'))
         self.button_editar.setIconSize(QtCore.QSize(24,24))
+        self.button_editar.setStyleSheet('background-color:#1f4c73')
 
         self.button_add = QtWidgets.QPushButton(self.centralwidget)
         self.button_add.setGeometry(QtCore.QRect(130, 210, 140, 30))
@@ -65,10 +68,7 @@ class Ui_MainWindow(object):
         self.button_add.setIcon(QtGui.QIcon('icons/plus.png'))
         self.button_add.setIconSize(QtCore.QSize(24,24))
         self.button_add.clicked.connect(self.openAdd)
-        """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.button_add.setIconSize(QtCore.QSize(24,24))
-        self.verticalLayout.addWidget(self.button_add) """
+        self.button_add.setStyleSheet('background-color:#1f4c73')
 
         self.button_remover = QtWidgets.QPushButton(self.centralwidget)
         self.button_remover.setGeometry(QtCore.QRect(320, 210, 140, 30))
@@ -80,6 +80,7 @@ class Ui_MainWindow(object):
         self.button_remover.setObjectName("button_remover")
         self.button_remover.setIcon(QtGui.QIcon('icons/delete.png'))
         self.button_remover.setIconSize(QtCore.QSize(24,24))
+        self.button_remover.setStyleSheet('background-color:#1f4c73')
         self.button_remover.clicked.connect(self.openRemove)
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
