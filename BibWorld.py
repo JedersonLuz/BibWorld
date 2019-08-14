@@ -9,8 +9,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-from telas import telaAdd
 from PyQt5.QtWidgets import QMessageBox
+from telas import telaAdd, Remover
+import PyrebaseConnector
 
 
 class Ui_MainWindow(object):
@@ -20,13 +21,11 @@ class Ui_MainWindow(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
-    def erro(self):
-        infoBox = QMessageBox()
-        infoBox.setIcon(QMessageBox.Information)
-        infoBox.setText("Êpa! Falta implementar essa :)")
-        infoBox.setWindowTitle("Buscar livro")
-        infoBox.setStandardButtons(QMessageBox.Ok)
-        infoBox.exec_()
+    def openRemove(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Remover.RemoveWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -44,7 +43,6 @@ class Ui_MainWindow(object):
         self.button_buscar.setObjectName("button_buscar")
         self.button_buscar.setIcon(QtGui.QIcon('icons/search.png'))
         self.button_buscar.setIconSize(QtCore.QSize(24,24))
-        self.button_buscar.clicked.connect(self.erro)
         self.button_buscar.setStyleSheet('background-color:#1f4c73')
 
         self.button_editar = QtWidgets.QPushButton(self.centralwidget)
@@ -83,6 +81,7 @@ class Ui_MainWindow(object):
         self.button_remover.setIcon(QtGui.QIcon('icons/delete.png'))
         self.button_remover.setIconSize(QtCore.QSize(24,24))
         self.button_remover.setStyleSheet('background-color:#1f4c73')
+        self.button_remover.clicked.connect(self.openRemove)
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.button_remover.setIconSize(QtCore.QSize(24,24))
@@ -109,7 +108,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.button_buscar.setText(_translate("MainWindow", " Buscar livro"))
         self.button_editar.setText(_translate("MainWindow", " Editar livro"))
-        self.button_add.setText(_translate("MainWindow", " Adicionar livro"))
+        self.button_add.setText(_translate("MainWindow", " Cadastrar livro"))
         self.button_remover.setText(_translate("MainWindow", " Remover livro"))
 
 
