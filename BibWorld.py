@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
 
     def openRemove(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Remover.RemoveWindow()
+        self.ui = Remover.Ui_RemoveWindow()
         self.ui.setupUi(self.window)
         self.window.show()
 

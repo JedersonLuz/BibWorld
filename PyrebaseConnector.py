@@ -94,20 +94,26 @@ class PyrebaseConnector(object):
 
     # Search for a book with ISBN
     def searchBook_ISBN(self, ISBN):
-        user = self.db.child('books').child(ISBN).get()
-        print(user.val()['title'])
-        print(user.val())
-        return user.val()
+        book = self.db.child('books').child(ISBN).get()
+        # print(book.val()['title'])
+        # print(book.val())
+        # print(type(book))
+        return book.val()
 
     # Search for a book with Title
     def searchBook_title(self, title):
-        user = self.db.child('books').child(title).get()
-        print(user.val()['title'])
-        return user.val()
+        book = self.db.child('books').child(title).get()
+        print(book.val()['title'])
+        return book.val()
 
     # Remove a book
     def removeBook(self, ISBN):
-        self.db.child('books').child(ISBN).remove()
+        if self.searchBook_ISBN(ISBN):
+            self.db.child('books').child(ISBN).remove()
+            return 1
+        else:
+            return 0
+        
 
 pc = PyrebaseConnector()
 # pc.createBook(9788576051428, 'Sistemas Distribuidos', 'Tanenbaum', 416, 3/8/2007, 'images/sistemas_distribuidos.jpeg')
