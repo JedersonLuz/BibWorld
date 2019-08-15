@@ -8,10 +8,10 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys
 from PyQt5.QtWidgets import QMessageBox
 from telas import telaAdd, Remover
 import PyrebaseConnector
+import sys
 
 
 class Ui_MainWindow(object):
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.button_add.setObjectName("button_add")
         self.button_add.setIcon(QtGui.QIcon('icons/plus.png'))
         self.button_add.setIconSize(QtCore.QSize(24,24))
-        self.button_add.clicked.connect(self.openAdd)
+        # self.button_add.clicked.connect(self.openAdd)
         self.button_add.setStyleSheet('background-color:#1f4c73')
 
         self.button_remover = QtWidgets.QPushButton(self.centralwidget)
@@ -81,7 +81,7 @@ class Ui_MainWindow(object):
         self.button_remover.setIcon(QtGui.QIcon('icons/delete.png'))
         self.button_remover.setIconSize(QtCore.QSize(24,24))
         self.button_remover.setStyleSheet('background-color:#1f4c73')
-        self.button_remover.clicked.connect(self.openRemove)
+        # self.button_remover.clicked.connect(self.openRemove)
         """ self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
         self.button_remover.setIconSize(QtCore.QSize(24,24))
@@ -112,10 +112,10 @@ class Ui_MainWindow(object):
         self.button_remover.setText(_translate("MainWindow", " Remover livro"))
 
 
-if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-    Other = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(Other)
-    Other.show()
-    sys.exit(app.exec_())
+# if __name__ == '__main__':
+#     app = QtWidgets.QApplication(sys.argv)
+#     Other = QtWidgets.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(Other)
+#     Other.show()
+#     sys.exit(app.exec_())

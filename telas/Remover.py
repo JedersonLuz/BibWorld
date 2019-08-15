@@ -11,10 +11,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import PyrebaseConnector as PC
 import sys
 
-data = {'col1':['1','2','3','4'],
-        'col2':['1','2','1','3'],
-        'col3':['1','1','2','1']}
-
 class Ui_RemoveWindow(object):
     def messageBox(self, textMessage, nameWin):
         infoBox = QtWidgets.QMessageBox()
@@ -92,6 +88,10 @@ class Ui_RemoveWindow(object):
         self.botao_remover.setIconSize(QtCore.QSize(24,24))
         self.botao_remover.clicked.connect(self.removeBook)
 
+        self.botao_voltar = QtWidgets.QPushButton(RemoveWindow)
+        self.botao_voltar.setGeometry(QtCore.QRect(260, 400, 140, 30))
+        self.botao_voltar.setObjectName("botao_voltar")
+        self.botao_voltar.setText('Voltar')
 
         self.label2 = QtWidgets.QLabel(self.centralwidget)
         self.label2.setGeometry(QtCore.QRect(10, 10, 400, 80))
