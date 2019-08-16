@@ -49,9 +49,11 @@ class Ui_MainWindow(object):
         self.label_13 = QtWidgets.QLabel(self.centralwidget)
         self.label_13.setGeometry(QtCore.QRect(20, 20, 541, 111))
         self.label_13.setText("")
-        self.label_13.setPixmap(QtGui.QPixmap("icons/iconBuscar.png"))
-        self.label_13.setScaledContents(True)
+        pixmap = QtGui.QPixmap("icons/iconBuscar.png")
+        pixmap3 = pixmap.scaled(400, 80, QtCore.Qt.KeepAspectRatio)
+        self.label_13.setPixmap(pixmap3)
         self.label_13.setObjectName("label_13")
+        self.label_13.setAlignment(QtCore.Qt.AlignCenter)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(200, 400, 87, 29))
         font = QtGui.QFont()
@@ -79,6 +81,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+        self.button_back.setFont(font)
+        self.button_back.setStyleSheet('background-color:#1f4c73')
+        self.pushButton.setFont(font)
+        self.pushButton.setStyleSheet('background-color:#1f4c73')
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -110,8 +117,3 @@ class Ui_MainWindow(object):
 #     ui.setupUi(Other)
 #     Other.show()
 #     sys.exit(app.exec_())
-
-        # PC.pc.storage.child('images/books/'+str(self.book['ISBN'])).download('images/books/'+str(self.book['ISBN'])+'.jpg')
-        # fileName = 'images/books/'+str(self.book['ISBN'])+'.jpg'
-        # print(fileName)
-        # self.label.setPixmap(QtGui.QPixmap(fileName))
