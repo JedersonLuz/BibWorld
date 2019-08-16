@@ -13,7 +13,7 @@ import datetime
 from PyQt5.QtWidgets import QMessageBox
 
 
-class Add_Form(object):
+class Edit_Form(object):
     def setupUi(self, Form):
         self.fname = ''
         Form.setObjectName("Form")
@@ -76,6 +76,7 @@ class Add_Form(object):
         self.lineISBN = QtWidgets.QLineEdit(self.widget)
         self.lineISBN.setObjectName("lineISBN")
         self.lineISBN.setPlaceholderText('Informe o ISBN do livro')
+        self.lineISBN.setEnabled(False)
         self.verticalLayout.addWidget(self.lineISBN)
         self.label_3 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -132,11 +133,11 @@ class Add_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle("Cadastro")
         self.label.setText(_translate("Form", "TextLabel"))
-        pixmap = QtGui.QPixmap("icons/iconCadastrar.png")
+        pixmap = QtGui.QPixmap("icons/iconEditar.png")
         pixmap3 = pixmap.scaled(400, 80, QtCore.Qt.KeepAspectRatio)
         self.label.setPixmap(pixmap3)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.button_cadastrar.setText(_translate("Form", "Concluir cadastro"))
+        self.button_cadastrar.setText(_translate("Form", "Salvar Alterações"))
         self.button_voltar.setText(_translate("Form", "Voltar"))
         self.label_6.setText(_translate("Form", "Título"))
         self.label_2.setText(_translate("Form", " ISBN"))
@@ -182,8 +183,8 @@ class Add_Form(object):
                 erroNum = 1
 
         if((erroISBN == 0) and (erroNum == 0) and (erroVazio == 0)):
-            PC.pc.createBook(self.lineISBN.text(), self.lineTitulo.text(), self.lineAutor.text(), self.lineNumPag.text(), self.dateEdit.text(), self.fname)
-            self.messageBox("Livro cadastrado com sucesso!", "Confirmação de cadastro")
+            PC.pc.updateBook(self.lineISBN.text(), self.lineTitulo.text(), self.lineAutor.text(), self.lineNumPag.text(), self.dateEdit.text(), self.fname)
+            self.messageBox("Alterações salvas com sucesso!", "Confirmação de alteração")
             self.lineISBN.setText('')
             self.lineTitulo.setText('')
             self.lineAutor.setText('')

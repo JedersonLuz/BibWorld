@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import PyrebaseConnector as PC
 import sys
 
-class Ui_EditWindow(object):
+class Ui_BuscarWindow(object):
     def messageBox(self, textMessage, nameWin):
         infoBox = QtWidgets.QMessageBox()
         infoBox.setIcon(QtWidgets.QMessageBox.Information)
@@ -71,13 +71,13 @@ class Ui_EditWindow(object):
             count+=1
 
 
-        self.botao_editar = QtWidgets.QPushButton(EditWindow)
-        self.botao_editar.setGeometry(QtCore.QRect(270, 350, 90, 30))
-        self.botao_editar.setObjectName("botao_editar")
-        self.botao_editar.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.botao_editar.setIconSize(QtCore.QSize(24,24))
-        self.botao_editar.setStyleSheet('background-color:#1f4c73')
-        self.botao_editar.setFont(font)
+        self.botao_buscar = QtWidgets.QPushButton(EditWindow)
+        self.botao_buscar.setGeometry(QtCore.QRect(270, 350, 90, 30))
+        self.botao_buscar.setObjectName("botao_buscar")
+        self.botao_buscar.setIcon(QtGui.QIcon('icons/search.png'))
+        self.botao_buscar.setIconSize(QtCore.QSize(24,24))
+        self.botao_buscar.setStyleSheet('background-color:#1f4c73')
+        self.botao_buscar.setFont(font)
 
         self.botao_voltar = QtWidgets.QPushButton(EditWindow)
         self.botao_voltar.setGeometry(QtCore.QRect(370, 350, 90, 30))
@@ -89,7 +89,7 @@ class Ui_EditWindow(object):
         self.label2 = QtWidgets.QLabel(self.centralwidget)
         self.label2.setGeometry(QtCore.QRect(80, 10, 400, 80))
         self.label2.setText("")
-        pixmap = QtGui.QPixmap("icons/iconEditar.png")
+        pixmap = QtGui.QPixmap("icons/iconBuscar.png")
         pixmap3 = pixmap.scaled(400, 80, QtCore.Qt.KeepAspectRatio)
         self.label2.setPixmap(pixmap3)
         self.label2.setObjectName("label")
@@ -104,6 +104,6 @@ class Ui_EditWindow(object):
 
     def retranslateUi(self, EditWindow):
         _translate = QtCore.QCoreApplication.translate
-        EditWindow.setWindowTitle(_translate("EditWindow", "Editar - BibWorld"))
+        EditWindow.setWindowTitle(_translate("EditWindow", "Buscar - BibWorld"))
         self.label.setText(_translate("EditWindow", "ISBN: "))
-        self.botao_editar.setText(_translate("EditWindow", "Editar"))
+        self.botao_buscar.setText(_translate("EditWindow", "Buscar"))

@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
+import PyrebaseConnector as PC
 import BibWorld
 import sys
 
@@ -13,6 +14,9 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack1 = QtWidgets.QMainWindow()
         self.stack2 = QtWidgets.QMainWindow()
         self.stack3 = QtWidgets.QMainWindow()
+        self.stack4 = QtWidgets.QMainWindow()
+        self.stack5 = QtWidgets.QMainWindow()
+        self.stack6 = QtWidgets.QMainWindow()
 
         self.main_ui = BibWorld.Ui_MainWindow()
         self.main_ui.setupUi(self.stack1)
@@ -23,10 +27,21 @@ class Ui_Main(QtWidgets.QWidget):
         self.remove_ui = BibWorld.Remover.Ui_RemoveWindow()
         self.remove_ui.setupUi(self.stack3)
 
+        self.edit_ui = BibWorld.telaEditar.Ui_EditWindow()
+        self.edit_ui.setupUi(self.stack4)
+
+        self.edit_form_ui = BibWorld.telaEditForm.Edit_Form()
+        self.edit_form_ui.setupUi(self.stack5)
+
+        self.search_ui = BibWorld.telaBuscar.Ui_BuscarWindow()
+        self.search_ui.setupUi(self.stack6)
+
         self.QtStack.addWidget(self.stack1)
         self.QtStack.addWidget(self.stack2)
         self.QtStack.addWidget(self.stack3)
-
+        self.QtStack.addWidget(self.stack4)
+        self.QtStack.addWidget(self.stack5)
+        self.QtStack.addWidget(self.stack6)
 
 
 class Main(QMainWindow, Ui_Main):
@@ -40,6 +55,14 @@ class Main(QMainWindow, Ui_Main):
         self.main_ui.button_remover.clicked.connect(self.OpenRemoveWindow)
         self.remove_ui.botao_voltar.clicked.connect(self.OpenMainWindow)
 
+        self.main_ui.button_editar.clicked.connect(self.OpenEditWindow)
+        self.edit_ui.botao_voltar.clicked.connect(self.OpenMainWindow)
+        self.edit_ui.botao_editar.clicked.connect(self.OpenEditFormWindows)
+        self.edit_form_ui.button_cadastrar.clicked.connect(self.OpenEditWindow)
+        self.edit_form_ui.button_voltar.clicked.connect(self.OpenEditWindow)
+
+        self.main_ui.button_buscar.clicked.connect(self.OpenBuscarWindow)
+
     def OpenMainWindow(self):
         self.QtStack.setCurrentIndex(0)
 
@@ -47,7 +70,38 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(1)
 
     def OpenRemoveWindow(self):
+        self.remove_ui.updateTable()
         self.QtStack.setCurrentIndex(2)
+
+    def OpenEditWindow(self):
+        self.edit_ui.updateTable()
+        self.QtStack.setCurrentIndex(3)
+
+    def OpenEditFormWindows(self):
+        if self.edit_ui.lineEdit.text() == '':
+            self.edit_ui.messageBox("Campo obrigatório!", "Aviso")
+        else:
+            try:
+                int(self.edit_ui.lineEdit.text())
+                book = PC.pc.searchBook_ISBN(self.edit_ui.lineEdit.text())
+                print(book)
+                if book:
+                    self.edit_form_ui.lineTitulo.setText(book['title'])
+                    self.edit_form_ui.lineISBN.setText(str(book['ISBN']))
+                    self.edit_form_ui.lineAutor.setText(book['leadAutor'])
+                    self.edit_form_ui.lineNumPag.setText(str(book['numPages']))
+                    self.edit_form_ui.dateEdit.setDate(QtCore.QDate(int(book['pubDate'].split('/')[2]), int(book['pubDate'].split('/')[1]), int(book['pubDate'].split('/')[0])))
+
+                    self.QtStack.setCurrentIndex(4)
+
+                    self.edit_ui.lineEdit.setText('')
+                else:
+                    self.edit_ui.messageBox("ISBN não encontrado!", "Erro")
+            except:
+                self.edit_ui.messageBox("O ISBN é um campo de números! Tente novamente!", "Erro")
+
+    def OpenBuscarWindow(self):
+        self.QtStack.setCurrentIndex(5)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

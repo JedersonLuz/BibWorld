@@ -34,11 +34,12 @@ class Ui_RemoveWindow(object):
 
     def setupUi(self, RemoveWindow):
         RemoveWindow.setObjectName("RemoveWindow")
-        RemoveWindow.resize(427, 502)
+        RemoveWindow.resize(577, 502)
+        RemoveWindow.setFixedSize(577, 502)
         self.centralwidget = QtWidgets.QWidget(RemoveWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(RemoveWindow)
-        self.label.setGeometry(QtCore.QRect(50, 310, 61, 51))
+        self.label.setGeometry(QtCore.QRect(110, 310, 61, 51))
         font = QtGui.QFont()
         font.setFamily("KacstOne")
         font.setBold(True)
@@ -48,23 +49,12 @@ class Ui_RemoveWindow(object):
         self.lineEdit = QtWidgets.QLineEdit(RemoveWindow)
         self.lineEdit.setObjectName('lineEdit')
         self.lineEdit.setPlaceholderText('Informe o ISBN do livro')
-        self.lineEdit.setGeometry(QtCore.QRect(50, 350, 200, 41))
-       
-        """ 
-        self.scrollArea = QtWidgets.QScrollArea(RemoveWindow)
-        self.scrollArea.setGeometry(QtCore.QRect(50, 130, 561, 181))
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 559, 179))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        """
+        self.lineEdit.setGeometry(QtCore.QRect(110, 350, 150, 30))
 
         bookList = PC.pc.db.child('books').get().val()
        
         self.table = QtWidgets.QTableWidget(RemoveWindow)
-        self.table.setGeometry(QtCore.QRect(50, 130, 350, 181))
+        self.table.setGeometry(QtCore.QRect(110, 130, 350, 181))
         self.table.setRowCount(len(bookList)+1)
         self.table.setColumnCount(2)
         self.table.setItem(0, 0, QtWidgets.QTableWidgetItem("ISBN"))
@@ -82,19 +72,23 @@ class Ui_RemoveWindow(object):
 
 
         self.botao_remover = QtWidgets.QPushButton(RemoveWindow)
-        self.botao_remover.setGeometry(QtCore.QRect(260, 357, 140, 30))
+        self.botao_remover.setGeometry(QtCore.QRect(270, 350, 90, 30))
         self.botao_remover.setObjectName("botao_remover")
         self.botao_remover.setIcon(QtGui.QIcon('icons/delete.png'))
         self.botao_remover.setIconSize(QtCore.QSize(24,24))
         self.botao_remover.clicked.connect(self.removeBook)
+        self.botao_remover.setStyleSheet('background-color:#1f4c73')
+        self.botao_remover.setFont(font)
 
         self.botao_voltar = QtWidgets.QPushButton(RemoveWindow)
-        self.botao_voltar.setGeometry(QtCore.QRect(260, 400, 140, 30))
+        self.botao_voltar.setGeometry(QtCore.QRect(370, 350, 90, 30))
         self.botao_voltar.setObjectName("botao_voltar")
         self.botao_voltar.setText('Voltar')
+        self.botao_voltar.setStyleSheet('background-color:#1f4c73')
+        self.botao_voltar.setFont(font)
 
         self.label2 = QtWidgets.QLabel(self.centralwidget)
-        self.label2.setGeometry(QtCore.QRect(10, 10, 400, 80))
+        self.label2.setGeometry(QtCore.QRect(80, 10, 400, 80))
         self.label2.setText("")
         pixmap = QtGui.QPixmap("icons/iconRemover.png")
         pixmap3 = pixmap.scaled(400, 80, QtCore.Qt.KeepAspectRatio)
@@ -116,13 +110,19 @@ class Ui_RemoveWindow(object):
         self.botao_remover.setText(_translate("RemoveWindow", "Remover"))
 
     def removeBook(self):
-        removido = PC.pc.removeBook(self.lineEdit.text())
-        if removido == 1:
-            self.updateTable()
-            self.messageBox('O livro com o ISBN de número {} foi removido.'.format(self.lineEdit.text()), 'Confimação')
-            print('O livro com o ISBN de número {} foi removido.'.format(self.lineEdit.text()))
-        else:
-            self.messageBox('ISBN não encontrado.'.format(self.lineEdit.text()), 'Erro ao remover')
+        try:
+            int(self.lineEdit.text())
+            removido = PC.pc.removeBook(self.lineEdit.text())
+            if removido == 1:
+                self.updateTable()
+                self.messageBox('O livro com o ISBN de número {} foi removido.'.format(self.lineEdit.text()), 'Confimação')
+                print('O livro com o ISBN de número {} foi removido.'.format(self.lineEdit.text()))
+                self.lineEdit.setText('')
+            else:
+                self.messageBox('ISBN não encontrado.'.format(self.lineEdit.text()), 'Erro ao remover')
+        except:
+            self.messageBox("O ISBN é um campo de números! Tente novamente!", "Erro")
+
 
 '''if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
