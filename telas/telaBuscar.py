@@ -60,7 +60,12 @@ class Ui_BuscarWindow(object):
         self.table.setItem(0, 0, QtWidgets.QTableWidgetItem("ISBN"))
         self.table.setItem(0, 1, QtWidgets.QTableWidgetItem("Título"))
         self.table.setColumnWidth(1, 250)
-        
+        font = QtGui.QFont()
+        font.setFamily("KacstOne")
+        font.setBold(True)
+        font.setWeight(75)
+        self.table.setFont(font)
+
         # print(bookList['9788534525640'])
         count = 1
         for book in bookList:
