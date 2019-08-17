@@ -119,6 +119,7 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(4)
 
     def OpenBuscarWindow(self):
+        self.search_ui.updateTable()
         self.QtStack.setCurrentIndex(5)
 
     def OpenReadWindow(self):
