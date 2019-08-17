@@ -60,6 +60,7 @@ class Ui_EditWindow(object):
         self.table.setItem(0, 0, QtWidgets.QTableWidgetItem("ISBN"))
         self.table.setItem(0, 1, QtWidgets.QTableWidgetItem("Título"))
         self.table.setColumnWidth(1, 250)
+        self.table.setFont(font)
         
         # print(bookList['9788534525640'])
         count = 1
