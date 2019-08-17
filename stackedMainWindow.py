@@ -69,7 +69,7 @@ class Main(QMainWindow, Ui_Main):
         self.search_ui.botao_voltar.clicked.connect(self.OpenMainWindow)
         self.search_ui.botao_buscar.clicked.connect(self.OpenReadWindow)
         self.read_ui.button_back.clicked.connect(self.OpenBuscarWindow)
-        self.read_ui.pushButton.clicked.connect(self.OpenEditFormWindows)
+        self.read_ui.pushButton.clicked.connect(self.OpenEditFormWindows_telaVerLivro)
 
     def OpenMainWindow(self):
         self.QtStack.setCurrentIndex(0)
@@ -108,7 +108,9 @@ class Main(QMainWindow, Ui_Main):
             except:
                 self.edit_ui.messageBox("O ISBN é um campo de números! Tente novamente!", "Erro")
 
-    def OpenEditFormWindows(self):
+    def OpenEditFormWindows_telaVerLivro(self):
+        print(self.read_ui.book)
+        print(self.read_ui.book['title'])
         self.edit_form_ui.lineTitulo.setText(self.read_ui.book['title'])
         self.edit_form_ui.lineISBN.setText(str(self.read_ui.book['ISBN']))
         self.edit_form_ui.lineAutor.setText(self.read_ui.book['leadAutor'])
