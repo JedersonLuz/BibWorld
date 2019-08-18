@@ -59,6 +59,7 @@ class Main(QMainWindow, Ui_Main):
         self.setupUi(self)
 
         self.login_ui.pushButton.clicked.connect(self.MakeLogin)
+        self.login_ui.pushButton_2.clicked.connect(self.MakeSignUp)
 
         self.main_ui.button_add.clicked.connect(self.OpenAddWindow)
         self.add_ui.button_voltar.clicked.connect(self.OpenMainWindow)
@@ -87,6 +88,9 @@ class Main(QMainWindow, Ui_Main):
             self.OpenMainWindow()
         else:
             self.edit_ui.messageBox(response, 'Erro')
+
+    def MakeSignUp(self):
+        self.edit_ui.messageBox('Opção ainda em desenvolvimento.', 'Alerta')
 
     def OpenLoginWindow(self):
         self.QtStack.setCurrentIndex(0)
