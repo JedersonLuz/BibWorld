@@ -11,6 +11,7 @@ class Ui_Main(QtWidgets.QWidget):
 
         self.QtStack = QtWidgets.QStackedLayout()
 
+        self.stack0 = QtWidgets.QMainWindow()
         self.stack1 = QtWidgets.QMainWindow()
         self.stack2 = QtWidgets.QMainWindow()
         self.stack3 = QtWidgets.QMainWindow()
@@ -18,6 +19,9 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack5 = QtWidgets.QMainWindow()
         self.stack6 = QtWidgets.QMainWindow()
         self.stack7 = QtWidgets.QMainWindow()
+
+        self.login_ui = BibWorld.loginWindows.Ui_Form()
+        self.login_ui.setupUi(self.stack0)
 
         self.main_ui = BibWorld.Ui_MainWindow()
         self.main_ui.setupUi(self.stack1)
@@ -40,6 +44,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.read_ui = BibWorld.telaVerLivro.Ui_MainWindow()
         self.read_ui.setupUi(self.stack7)
 
+        self.QtStack.addWidget(self.stack0)
         self.QtStack.addWidget(self.stack1)
         self.QtStack.addWidget(self.stack2)
         self.QtStack.addWidget(self.stack3)
@@ -52,6 +57,8 @@ class Main(QMainWindow, Ui_Main):
     def __init__(self, parent=None):
         super(Main, self).__init__(parent)
         self.setupUi(self)
+
+        self.login_ui.pushButton.clicked.connect(self.MakeLogin)
 
         self.main_ui.button_add.clicked.connect(self.OpenAddWindow)
         self.add_ui.button_voltar.clicked.connect(self.OpenMainWindow)
@@ -71,19 +78,32 @@ class Main(QMainWindow, Ui_Main):
         self.read_ui.button_back.clicked.connect(self.OpenBuscarWindow)
         self.read_ui.pushButton.clicked.connect(self.OpenEditFormWindows_telaVerLivro)
 
-    def OpenMainWindow(self):
+    def MakeLogin(self):
+        email = self.login_ui.lineEdit.text()
+        password = self.login_ui.lineEdit_2.text()
+        # print('email: {}, password: {}.'.format(email, password))
+        response = PC.pc.login(email, password)
+        if response == 'Ok':
+            self.OpenMainWindow()
+        else:
+            self.edit_ui.messageBox(response, 'Erro')
+
+    def OpenLoginWindow(self):
         self.QtStack.setCurrentIndex(0)
 
-    def OpenAddWindow(self):
+    def OpenMainWindow(self):
         self.QtStack.setCurrentIndex(1)
+
+    def OpenAddWindow(self):
+        self.QtStack.setCurrentIndex(2)
 
     def OpenRemoveWindow(self):
         self.remove_ui.updateTable()
-        self.QtStack.setCurrentIndex(2)
+        self.QtStack.setCurrentIndex(3)
 
     def OpenEditWindow(self):
         self.edit_ui.updateTable()
-        self.QtStack.setCurrentIndex(3)
+        self.QtStack.setCurrentIndex(4)
 
     def OpenEditFormWindows(self):
         if self.edit_ui.lineEdit.text() == '':
@@ -100,7 +120,7 @@ class Main(QMainWindow, Ui_Main):
                     self.edit_form_ui.lineNumPag.setText(str(book['numPages']))
                     self.edit_form_ui.dateEdit.setDate(QtCore.QDate(int(book['pubDate'].split('/')[2]), int(book['pubDate'].split('/')[1]), int(book['pubDate'].split('/')[0])))
 
-                    self.QtStack.setCurrentIndex(4)
+                    self.QtStack.setCurrentIndex(5)
 
                     self.edit_ui.lineEdit.setText('')
                 else:
@@ -118,15 +138,15 @@ class Main(QMainWindow, Ui_Main):
         print(self.read_ui.book['pubDate'])
         self.edit_form_ui.dateEdit.setDate(QtCore.QDate(int(self.read_ui.book['pubDate'].split('/')[2]), int(self.read_ui.book['pubDate'].split('/')[1]), int(self.read_ui.book['pubDate'].split('/')[0])))
 
-        self.QtStack.setCurrentIndex(4)
+        self.QtStack.setCurrentIndex(5)
 
     def OpenBuscarWindow(self):
-        self.QtStack.setCurrentIndex(5)
+        self.QtStack.setCurrentIndex(6)
 
     def OpenReadWindow(self):
         self.read_ui.book = PC.pc.searchBook_ISBN(self.search_ui.lineEdit.text())
         self.read_ui.UpdateTable()
-        self.QtStack.setCurrentIndex(6)
+        self.QtStack.setCurrentIndex(7)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -1,5 +1,6 @@
 import pyrebase
 import getpass 
+import socket
 import json
 
 def InitializeApp():
@@ -18,6 +19,9 @@ def InitializeApp():
 
 class PyrebaseConnector(object):
     def __init__(self):
+        # Check if an internet connection is present
+        self.is_connected()
+
         # Initialize Application Services
         self.firebase = InitializeApp()
         
@@ -30,6 +34,24 @@ class PyrebaseConnector(object):
         # Get a reference to the storage service
         self.storage = self.firebase.storage()
 
+
+    def is_connected(self, hostname="www.google.com"):
+        try:
+            # see if we can resolve the host name -- tells us if there is
+            # a DNS listening
+            host = socket.gethostbyname(hostname)
+            # connect to the host -- tells us if the host is actually
+            # reachable
+            s = socket.create_connection((host, 80), 2)
+            s.close()
+            return True
+        except Exception as e:
+            print('NO_INTERNET_CONECTION')
+            print('Try:')
+            print('  Checking the network cables, modem, and router')
+            print('  Reconnecting to Wi-Fi')
+            exit(0)
+        return False
 
     # Log the user in application
     def login(self, email, password):

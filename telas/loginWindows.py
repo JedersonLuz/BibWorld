@@ -14,6 +14,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(577, 502)
+        Form.setFixedSize(577, 502)
         font = QtGui.QFont()
         font.setFamily("KacstOne")
         font.setBold(True)
@@ -37,6 +38,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_2)
         self.lineEdit_2 = QtWidgets.QLineEdit(self.verticalLayoutWidget)
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
         self.verticalLayout.addWidget(self.lineEdit_2)
         self.label_3 = QtWidgets.QLabel(Form)
         self.label_3.setGeometry(QtCore.QRect(10, 10, 561, 131))
