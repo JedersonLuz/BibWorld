@@ -76,7 +76,6 @@ class PyrebaseConnector(object):
                 'gender': gender,
             }
             self.db.child("users").child(self.user['localId']).set(data)
-            # self.auth.send_password_reset_email('jedersonalpha@gmail.com')
             return 'Ok'
         except Exception as e:
             _error_json = e.args[1]
@@ -91,6 +90,12 @@ class PyrebaseConnector(object):
         }
         # print(self.auth.current_user['localId'])
         self.db.child('users').child(self.auth.current_user['localId']).update(data)
+
+    def changePassword(self, email):
+        try:
+            self.auth.send_password_reset_email(email)
+        except Exception as e:
+            print(e)
 
     # Register a book in database
     def createBook(self, ISBN, title, leadAuthor, numPages, pubDate, pathImg):
@@ -146,6 +151,8 @@ class PyrebaseConnector(object):
         
 
 pc = PyrebaseConnector()
+
+# pc.changePassword('jedersonalpha@gmail.com')
 
 # pc.login('jedersonalpha@gmail.com', getpass.getpass())
 # pc.updateUser('Jederson Sousa Luz', '18/02/1997', 'masculino')
