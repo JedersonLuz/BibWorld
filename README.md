@@ -14,4 +14,4 @@ It must install the required libraries ([PyQt5](<https://pypi.org/project/PyQt5/
 
 License
 -------
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/JedersonLuz/BibWorld/blob/master/LICENSE)
