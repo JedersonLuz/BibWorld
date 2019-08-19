@@ -67,23 +67,31 @@ class PyrebaseConnector(object):
             return _error['message']
 
     # Create a user
-    def signUp(self, email, displayName, password):
-        # email = input("Enter your email: ")
-        # displayName = input('Enter your display name: ')
-        # password = input("Enter your password: ")
-
+    def signUp(self, email, password, displayName, dateBirth, gender):
         try:
             self.user = self.auth.create_user_with_email_and_password(email, password)
             data = {
-                "displayName": displayName
+                "displayName": displayName,
+                'dateBirth': dateBirth,
+                'gender': gender,
             }
             self.db.child("users").child(self.user['localId']).set(data)
+            # self.auth.send_password_reset_email('jedersonalpha@gmail.com')
             return 'Ok'
         except Exception as e:
             _error_json = e.args[1]
             _error = json.loads(_error_json)['error']
             return _error['message']
     
+    def updateUser(self, displayName, dateBirth, gender):
+        data = {
+            "displayName": displayName,
+            'dateBirth': dateBirth,
+            'gender': gender,
+        }
+        # print(self.auth.current_user['localId'])
+        self.db.child('users').child(self.auth.current_user['localId']).update(data)
+
     # Register a book in database
     def createBook(self, ISBN, title, leadAuthor, numPages, pubDate, pathImg):
         self.storage.child('images/books/'+str(ISBN)).put(pathImg)
@@ -138,6 +146,11 @@ class PyrebaseConnector(object):
         
 
 pc = PyrebaseConnector()
+
+# pc.login('jedersonalpha@gmail.com', getpass.getpass())
+# pc.updateUser('Jederson Sousa Luz', '18/02/1997', 'masculino')
+
+# print(pc.signUp('vitoria@gmail.com', '123456', 'Vitória', '29/11/1999', 'feminino'))
 # pc.createBook(9788576051428, 'Sistemas Distribuidos', 'Tanenbaum', 416, 3/8/2007, 'images/sistemas_distribuidos.jpeg')
 # pc.updateBook(ISBN=9788544103166, title='Ready Player One', leadAuthor='Ernet Cline', numPages=464, pubDate='8/9/2018', pathImg='images/jogador_n_1.jpg')
 # pc.removeBook(9788544103166)

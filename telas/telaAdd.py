@@ -162,6 +162,11 @@ class Add_Form(object):
         erroNum = 0
         erroISBN = 0
         erroVazio = 0
+        erroISBNExiste = 0
+
+        if PC.pc.searchBook_ISBN(self.lineISBN.text()):
+            self.messageBox('ISBN já existe!', 'Erro')
+            erroISBNExiste = 1
 
         if((self.lineISBN.text() == '') or (self.lineTitulo.text() == '') or (self.lineAutor.text() == '') or (self.lineNumPag.text() == '') or (self.fname == '')):
             self.messageBox("Todas os campos devem ser preenchidos!", "Campos obrigatórios")
@@ -181,7 +186,7 @@ class Add_Form(object):
                 self.messageBox("Número de páginas inválido! Tente novamente!", "Erro")
                 erroNum = 1
 
-        if((erroISBN == 0) and (erroNum == 0) and (erroVazio == 0)):
+        if((erroISBN == 0) and (erroNum == 0) and (erroVazio == 0) and (erroISBNExiste == 0)):
             PC.pc.createBook(self.lineISBN.text(), self.lineTitulo.text(), self.lineAutor.text(), self.lineNumPag.text(), self.dateEdit.text(), self.fname)
             self.messageBox("Livro cadastrado com sucesso!", "Confirmação de cadastro")
             self.lineISBN.setText('')
