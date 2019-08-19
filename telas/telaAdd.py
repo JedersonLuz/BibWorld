@@ -172,14 +172,14 @@ class Add_Form(object):
             self.messageBox("Todas os campos devem ser preenchidos!", "Campos obrigatórios")
             erroVazio = 1
 
-        if((erroISBN == 0) and (erroVazio == 0)):
+        if((erroISBN == 0) and (erroVazio == 0) and (erroISBNExiste == 0)):
             try:
                 int(self.lineISBN.text())
             except:
                 self.messageBox("O ISBN é um campo de números! Tente novamente!", "Erro")
-                erroNum = 1
+                erroISBN = 1
 
-        if(erroNum == 0 and (erroISBN == 0) and (erroVazio == 0)):
+        if((erroNum == 0) and (erroISBN == 0) and (erroVazio == 0) and (erroISBNExiste == 0)):
             try:
                 int(self.lineNumPag.text())
             except:

@@ -19,9 +19,13 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack5 = QtWidgets.QMainWindow()
         self.stack6 = QtWidgets.QMainWindow()
         self.stack7 = QtWidgets.QMainWindow()
+        self.stack8 = QtWidgets.QMainWindow()
 
         self.login_ui = BibWorld.loginWindows.Ui_Form()
         self.login_ui.setupUi(self.stack0)
+
+        self.add_user_ui = BibWorld.telaAddUser.Ui_Form()
+        self.add_user_ui.setupUi(self.stack8)
 
         self.main_ui = BibWorld.Ui_MainWindow()
         self.main_ui.setupUi(self.stack1)
@@ -52,6 +56,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.QtStack.addWidget(self.stack5)
         self.QtStack.addWidget(self.stack6)
         self.QtStack.addWidget(self.stack7)
+        self.QtStack.addWidget(self.stack8)
 
 class Main(QMainWindow, Ui_Main):
     def __init__(self, parent=None):
@@ -59,7 +64,10 @@ class Main(QMainWindow, Ui_Main):
         self.setupUi(self)
 
         self.login_ui.pushButton.clicked.connect(self.MakeLogin)
-        self.login_ui.pushButton_2.clicked.connect(self.MakeSignUp)
+        self.login_ui.pushButton_2.clicked.connect(self.OpenSignUpWindow)
+
+        self.add_user_ui.buttonSubmit.clicked.connect(self.MakeSignUp)
+        self.add_user_ui.buttonBack.clicked.connect(self.OpenLoginWindow)
 
         self.main_ui.button_add.clicked.connect(self.OpenAddWindow)
         self.add_ui.button_voltar.clicked.connect(self.OpenMainWindow)
@@ -82,7 +90,6 @@ class Main(QMainWindow, Ui_Main):
     def MakeLogin(self):
         email = self.login_ui.lineEdit.text()
         password = self.login_ui.lineEdit_2.text()
-        # print('email: {}, password: {}.'.format(email, password))
         response = PC.pc.login(email, password)
         if response == 'Ok':
             self.OpenMainWindow()
@@ -90,7 +97,32 @@ class Main(QMainWindow, Ui_Main):
             self.edit_ui.messageBox(response, 'Erro')
 
     def MakeSignUp(self):
-        self.edit_ui.messageBox('Opção ainda em desenvolvimento.', 'Alerta')
+        email = self.add_user_ui.lineEditEmail.text()
+        password = self.add_user_ui.lineEditPassword.text()
+        password_2 = self.add_user_ui.lineEditPassword_2.text()
+        displayName = self.add_user_ui.lineEditUserName.text()
+        dateBirth = self.add_user_ui.dateBirth.text()
+        gender = self.add_user_ui.selectGender.currentText()
+
+        erroVazio = 0
+        if (email == '') or (password == '') or (password_2 == '') or (displayName == ''):
+            self.edit_ui.messageBox('Campos obrigatórios.', 'Erro')
+            erroVazio = 1
+        
+        erroSenha = 0
+        if (password != password_2) and (erroVazio == 0):
+            self.edit_ui.messageBox('Os campos de senha não coincidem.', 'Erro')
+            erroSenha = 1
+
+        if (erroVazio == 0) and (erroSenha == 0):
+            response = PC.pc.signUp(email, password, displayName, dateBirth, gender)
+            if response == 'Ok':
+                self.OpenMainWindow()
+            else:
+                self.edit_ui.messageBox(response, 'Erro')
+    
+    def OpenSignUpWindow(self):
+        self.QtStack.setCurrentIndex(8)
 
     def OpenLoginWindow(self):
         self.QtStack.setCurrentIndex(0)
