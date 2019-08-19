@@ -9,8 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from telas import telaAdd, Remover, telaEditar, telaEditForm, telaBuscar, telaVerLivro
-import PyrebaseConnector
+from telas import telaAdd, Remover, telaEditar, telaEditForm, telaBuscar, telaVerLivro, loginWindows
 import sys
 
 

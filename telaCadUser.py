@@ -11,6 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import PyrebaseConnector as PC
 import datetime
 from PyQt5.QtWidgets import QMessageBox
+import sys
 
 
 class Add_Form(object):
@@ -44,7 +45,7 @@ class Add_Form(object):
         font.setWeight(75)
         self.button_cadastrar.setFont(font)
         self.button_cadastrar.setObjectName("button_cadastrar")
-        self.button_cadastrar.clicked.connect(self.registerBook)
+        #self.button_cadastrar.clicked.connect(self.registerBook)
         self.button_cadastrar.setStyleSheet('background-color:#1f4c73')
         #self.button_cadastrar.setStyleSheet('font-color:white;')
         self.widget = QtWidgets.QWidget(Form)
@@ -61,10 +62,10 @@ class Add_Form(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.verticalLayout.addWidget(self.label_6)
-        self.lineTitulo = QtWidgets.QLineEdit(self.widget)
-        self.lineTitulo.setObjectName("lineTitulo")
-        self.lineTitulo.setPlaceholderText('Informe o título do livro')
-        self.verticalLayout.addWidget(self.lineTitulo)
+        self.lineName = QtWidgets.QLineEdit(self.widget)
+        self.lineName.setObjectName("lineName")
+        self.lineName.setPlaceholderText('Informe o seu email')
+        self.verticalLayout.addWidget(self.lineName)
         self.label_2 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
         font.setFamily("KacstOne")
@@ -73,10 +74,11 @@ class Add_Form(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
-        self.lineISBN = QtWidgets.QLineEdit(self.widget)
-        self.lineISBN.setObjectName("lineISBN")
-        self.lineISBN.setPlaceholderText('Informe o ISBN do livro')
-        self.verticalLayout.addWidget(self.lineISBN)
+        self.linePassword = QtWidgets.QLineEdit(self.widget)
+        self.linePassword.setObjectName("linePassword")
+        self.linePassword.setPlaceholderText('Informe sua senha')
+        self.linePassword.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.verticalLayout.addWidget(self.linePassword)
         self.label_3 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
         font.setFamily("KacstOne")
@@ -85,10 +87,10 @@ class Add_Form(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
-        self.lineAutor = QtWidgets.QLineEdit(self.widget)
-        self.lineAutor.setObjectName("lineAutor")
-        self.lineAutor.setPlaceholderText('Informe o autor principal do livro')
-        self.verticalLayout.addWidget(self.lineAutor)
+        self.lineUsername = QtWidgets.QLineEdit(self.widget)
+        self.lineUsername.setObjectName("lineUsername")
+        self.lineUsername.setPlaceholderText('Informe o seu nome de usuario')
+        self.verticalLayout.addWidget(self.lineUsername)
         self.label_5 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
         font.setFamily("KacstOne")
@@ -97,10 +99,10 @@ class Add_Form(object):
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.verticalLayout.addWidget(self.label_5)
-        self.dateEdit = QtWidgets.QDateEdit(self.widget)
-        self.dateEdit.setObjectName("dateEdit")
-        #self.dateEdit.setDateTime(QDate(2019, 8, 13))
-        self.verticalLayout.addWidget(self.dateEdit)
+        self.lineUsername = QtWidgets.QLineEdit(self.widget)
+        self.lineUsername.setObjectName("lineUsername")
+        self.lineUsername.setPlaceholderText('Informe o seu sexo')
+        self.verticalLayout.addWidget(self.lineUsername)
         self.label_4 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
         font.setFamily("KacstOne")
@@ -109,11 +111,14 @@ class Add_Form(object):
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.verticalLayout.addWidget(self.label_4)
-        self.lineNumPag = QtWidgets.QLineEdit(self.widget)
-        self.lineNumPag.setObjectName("lineNumPag")
-        self.lineNumPag.setPlaceholderText('Informe o nº de páginas do livro')
-        self.verticalLayout.addWidget(self.lineNumPag)
-        self.button_escolher = QtWidgets.QPushButton(self.widget)
+        self.dateEdit = QtWidgets.QDateEdit(self.widget)
+        self.dateEdit.setObjectName("dateEdit")
+        self.verticalLayout.addWidget(self.dateEdit)
+        '''self.lineUsername = QtWidgets.QLineEdit(self.widget)
+        self.lineUsername.setObjectName("lineUsername")
+        self.lineUsername.setPlaceholderText('Informe o nº de páginas do livro')
+        self.verticalLayout.addWidget(self.lineUsername)'''
+        '''self.button_escolher = QtWidgets.QPushButton(self.widget)
         font = QtGui.QFont()
         font.setFamily("KacstOne")
         font.setBold(True)
@@ -123,14 +128,14 @@ class Add_Form(object):
         self.button_escolher.setIcon(QtGui.QIcon('icons/upload.png'))
         self.button_escolher.setIconSize(QtCore.QSize(24,24))
         self.button_escolher.clicked.connect(self.openFileNameDialog)
-        self.verticalLayout.addWidget(self.button_escolher)
+        self.verticalLayout.addWidget(self.button_escolher)'''
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle("Cadastro")
+        Form.setWindowTitle("Cadastro de Usuário")
         self.label.setText(_translate("Form", "TextLabel"))
         pixmap = QtGui.QPixmap("icons/iconCadastrar.png")
         pixmap3 = pixmap.scaled(400, 80, QtCore.Qt.KeepAspectRatio)
@@ -138,16 +143,12 @@ class Add_Form(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.button_cadastrar.setText(_translate("Form", "Concluir cadastro"))
         self.button_voltar.setText(_translate("Form", "Voltar"))
-        self.label_6.setText(_translate("Form", "Título"))
-        self.label_2.setText(_translate("Form", " ISBN"))
-        self.label_3.setText(_translate("Form", "Autor principal"))
-        self.label_5.setText(_translate("Form", "Data de publicação"))
-        self.label_4.setText(_translate("Form", "Nºde páginas"))
-        self.button_escolher.setText(_translate("Form", " Escolher imagem de capa"))
-
-    def openFileNameDialog(self):
-        self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png *.jpeg)")
-        # print(fname)
+        self.label_6.setText(_translate("Form", "Email"))
+        self.label_2.setText(_translate("Form", "Senha"))
+        self.label_3.setText(_translate("Form", "Nome de Usuário"))
+        self.label_5.setText(_translate("Form", "Sexo"))
+        self.label_4.setText(_translate("Form", "Data de Nascimento"))
+        #self.button_escolher.setText(_translate("Form", " Escolher imagem de capa"))
 
     def messageBox(self, textMessage, nameWin):
         infoBox = QMessageBox()
@@ -157,39 +158,11 @@ class Add_Form(object):
         infoBox.setStandardButtons(QMessageBox.Ok)
         infoBox.exec_()
 
-    def registerBook(self):
-        # print(self.fname)
-        erroNum = 0
-        erroISBN = 0
-        erroVazio = 0
-        erroISBNExiste = 0
 
-        if PC.pc.searchBook_ISBN(self.lineISBN.text()):
-            self.messageBox('ISBN já existe!', 'Erro')
-            erroISBNExiste = 1
-
-        if((self.lineISBN.text() == '') or (self.lineTitulo.text() == '') or (self.lineAutor.text() == '') or (self.lineNumPag.text() == '') or (self.fname == '')):
-            self.messageBox("Todas os campos devem ser preenchidos!", "Campos obrigatórios")
-            erroVazio = 1
-
-        if((erroISBN == 0) and (erroVazio == 0)):
-            try:
-                int(self.lineISBN.text())
-            except:
-                self.messageBox("O ISBN é um campo de números! Tente novamente!", "Erro")
-                erroNum = 1
-
-        if(erroNum == 0 and (erroISBN == 0) and (erroVazio == 0)):
-            try:
-                int(self.lineNumPag.text())
-            except:
-                self.messageBox("Número de páginas inválido! Tente novamente!", "Erro")
-                erroNum = 1
-
-        if((erroISBN == 0) and (erroNum == 0) and (erroVazio == 0) and (erroISBNExiste == 0)):
-            PC.pc.createBook(self.lineISBN.text(), self.lineTitulo.text(), self.lineAutor.text(), self.lineNumPag.text(), self.dateEdit.text(), self.fname)
-            self.messageBox("Livro cadastrado com sucesso!", "Confirmação de cadastro")
-            self.lineISBN.setText('')
-            self.lineTitulo.setText('')
-            self.lineAutor.setText('')
-            self.lineNumPag.setText('')
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    Other = QtWidgets.QMainWindow()
+    ui = Add_Form()
+    ui.setupUi(Other)
+    Other.show()
+    sys.exit(app.exec_())

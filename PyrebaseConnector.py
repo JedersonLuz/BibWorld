@@ -1,5 +1,6 @@
 import pyrebase
 import getpass 
+import socket
 import json
 
 def InitializeApp():
@@ -18,6 +19,9 @@ def InitializeApp():
 
 class PyrebaseConnector(object):
     def __init__(self):
+        # Check if an internet connection is present
+        self.is_connected()
+
         # Initialize Application Services
         self.firebase = InitializeApp()
         
@@ -30,6 +34,24 @@ class PyrebaseConnector(object):
         # Get a reference to the storage service
         self.storage = self.firebase.storage()
 
+
+    def is_connected(self, hostname="www.google.com"):
+        try:
+            # see if we can resolve the host name -- tells us if there is
+            # a DNS listening
+            host = socket.gethostbyname(hostname)
+            # connect to the host -- tells us if the host is actually
+            # reachable
+            s = socket.create_connection((host, 80), 2)
+            s.close()
+            return True
+        except Exception as e:
+            print('NO_INTERNET_CONECTION')
+            print('Try:')
+            print('  Checking the network cables, modem, and router')
+            print('  Reconnecting to Wi-Fi')
+            exit(0)
+        return False
 
     # Log the user in application
     def login(self, email, password):
@@ -45,15 +67,13 @@ class PyrebaseConnector(object):
             return _error['message']
 
     # Create a user
-    def signUp(self, email, displayName, password):
-        # email = input("Enter your email: ")
-        # displayName = input('Enter your display name: ')
-        # password = input("Enter your password: ")
-
+    def signUp(self, email, password, displayName, dateBirth, gender):
         try:
             self.user = self.auth.create_user_with_email_and_password(email, password)
             data = {
-                "displayName": displayName
+                "displayName": displayName,
+                'dateBirth': dateBirth,
+                'gender': gender,
             }
             self.db.child("users").child(self.user['localId']).set(data)
             return 'Ok'
@@ -62,6 +82,21 @@ class PyrebaseConnector(object):
             _error = json.loads(_error_json)['error']
             return _error['message']
     
+    def updateUser(self, displayName, dateBirth, gender):
+        data = {
+            "displayName": displayName,
+            'dateBirth': dateBirth,
+            'gender': gender,
+        }
+        # print(self.auth.current_user['localId'])
+        self.db.child('users').child(self.auth.current_user['localId']).update(data)
+
+    def changePassword(self, email):
+        try:
+            self.auth.send_password_reset_email(email)
+        except Exception as e:
+            print(e)
+
     # Register a book in database
     def createBook(self, ISBN, title, leadAuthor, numPages, pubDate, pathImg):
         self.storage.child('images/books/'+str(ISBN)).put(pathImg)
@@ -116,6 +151,13 @@ class PyrebaseConnector(object):
         
 
 pc = PyrebaseConnector()
+
+# pc.changePassword('jedersonalpha@gmail.com')
+
+# pc.login('jedersonalpha@gmail.com', getpass.getpass())
+# pc.updateUser('Jederson Sousa Luz', '18/02/1997', 'masculino')
+
+# print(pc.signUp('vitoria@gmail.com', '123456', 'Vitória', '29/11/1999', 'feminino'))
 # pc.createBook(9788576051428, 'Sistemas Distribuidos', 'Tanenbaum', 416, 3/8/2007, 'images/sistemas_distribuidos.jpeg')
 # pc.updateBook(ISBN=9788544103166, title='Ready Player One', leadAuthor='Ernet Cline', numPages=464, pubDate='8/9/2018', pathImg='images/jogador_n_1.jpg')
 # pc.removeBook(9788544103166)
