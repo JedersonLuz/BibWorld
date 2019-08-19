@@ -11,3 +11,7 @@ Download the latest version from the [GitHub repository](<https://github.com/Jed
     pip install pyrebase
 
 It must install the required libraries ([PyQt5](<https://pypi.org/project/PyQt5/>), [pyrebase](<https://github.com/thisbejim/Pyrebase>)).
+
+License
+-------
+[MIT](https://choosealicense.com/licenses/mit/)
