@@ -8,6 +8,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+import PyrebaseConnector as PC
 import sys
 
 
@@ -35,6 +37,7 @@ class Ui_Form(object):
         self.verticalLayout.addWidget(self.label_6)
         self.lineEdit_4 = QtWidgets.QLineEdit(self.layoutWidget)
         self.lineEdit_4.setObjectName("lineEdit_4")
+        self.lineEdit_4.setDisabled(True)
         self.verticalLayout.addWidget(self.lineEdit_4)
         self.label_7 = QtWidgets.QLabel(self.layoutWidget)
         font = QtGui.QFont()
@@ -71,22 +74,24 @@ class Ui_Form(object):
         self.comboBox.addItem('Feminino')
         self.comboBox.addItem('Masculino')
         self.verticalLayout.addWidget(self.comboBox)
-        self.pushButton_2 = QtWidgets.QPushButton(Form)
-        self.pushButton_2.setGeometry(QtCore.QRect(260, 410, 141, 29))
+        self.button_cadastrar = QtWidgets.QPushButton(Form)
+        self.button_cadastrar.setGeometry(QtCore.QRect(260, 410, 141, 29))
+        self.button_cadastrar.setStyleSheet('background-color:#1f4c73')
         font = QtGui.QFont()
         font.setFamily("KacstOne")
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(Form)
-        self.pushButton_3.setGeometry(QtCore.QRect(170, 410, 71, 29))
+        self.button_cadastrar.setFont(font)
+        self.button_cadastrar.setObjectName("button_cadastrar")
+        self.button_back = QtWidgets.QPushButton(Form)
+        self.button_back.setGeometry(QtCore.QRect(170, 410, 71, 29))
+        self.button_back.setStyleSheet('background-color:#1f4c73')
         font = QtGui.QFont()
         font.setFamily("KacstOne")
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton_3.setFont(font)
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.button_back.setFont(font)
+        self.button_back.setObjectName("button_back")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -103,13 +108,32 @@ class Ui_Form(object):
         self.label_7.setText(_translate("Form", "Nome de usuário:"))
         self.label_5.setText(_translate("Form", "Data de nascimento:"))
         self.label_4.setText(_translate("Form", "Sexo:"))
-        self.pushButton_2.setText(_translate("Form", "Concluir cadastro"))
-        self.pushButton_3.setText(_translate("Form", "Voltar"))
+        self.button_cadastrar.setText(_translate("Form", "Concluir cadastro"))
+        self.button_cadastrar.clicked.connect(self.UpdateUser)
+        self.button_back.setText(_translate("Form", "Voltar"))
 
-if __name__ == '__main__':
+    def messageBox(self, textMessage, nameWin):
+        infoBox = QMessageBox()
+        infoBox.setIcon(QMessageBox.Information)
+        infoBox.setText(textMessage)
+        infoBox.setWindowTitle(nameWin)
+        infoBox.setStandardButtons(QMessageBox.Ok)
+        infoBox.exec_()
+
+    def UpdateUser(self):
+        erroVazio = 0
+        if self.lineEdit_5.text() == '':
+            erroVazio = 1
+            self.messageBox('Campos obrigatórios!', 'Erro')
+        
+        if erroVazio == 0:
+            PC.pc.updateUser(self.lineEdit_5.text(), self.dateEdit.text(), self.comboBox.currentText())
+            self.messageBox('Dados atualizados!', 'Mensagem')
+
+""" if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     Other = QtWidgets.QMainWindow()
     ui = Ui_Form()
     ui.setupUi(Other)
     Other.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_()) """

@@ -20,6 +20,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack6 = QtWidgets.QMainWindow()
         self.stack7 = QtWidgets.QMainWindow()
         self.stack8 = QtWidgets.QMainWindow()
+        self.stack9 = QtWidgets.QMainWindow()
 
         self.login_ui = BibWorld.loginWindows.Ui_Form()
         self.login_ui.setupUi(self.stack0)
@@ -48,6 +49,9 @@ class Ui_Main(QtWidgets.QWidget):
         self.read_ui = BibWorld.telaVerLivro.Ui_MainWindow()
         self.read_ui.setupUi(self.stack7)
 
+        self.editUser_ui = BibWorld.telaEditUser.Ui_Form()
+        self.editUser_ui.setupUi(self.stack9)
+
         self.QtStack.addWidget(self.stack0)
         self.QtStack.addWidget(self.stack1)
         self.QtStack.addWidget(self.stack2)
@@ -57,6 +61,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.QtStack.addWidget(self.stack6)
         self.QtStack.addWidget(self.stack7)
         self.QtStack.addWidget(self.stack8)
+        self.QtStack.addWidget(self.stack9)
 
 class Main(QMainWindow, Ui_Main):
     def __init__(self, parent=None):
@@ -86,6 +91,9 @@ class Main(QMainWindow, Ui_Main):
         self.search_ui.botao_buscar.clicked.connect(self.OpenReadWindow)
         self.read_ui.button_back.clicked.connect(self.OpenBuscarWindow)
         self.read_ui.pushButton.clicked.connect(self.OpenEditFormWindows_telaVerLivro)
+
+        self.main_ui.button_editar_user.clicked.connect(self.OpenEditUser)
+        self.editUser_ui.button_back.clicked.connect(self.OpenMainWindow)
 
     def MakeLogin(self):
         email = self.login_ui.lineEdit.text()
@@ -184,6 +192,19 @@ class Main(QMainWindow, Ui_Main):
         self.read_ui.book = PC.pc.searchBook_ISBN(self.search_ui.lineEdit.text())
         self.read_ui.UpdateTable()
         self.QtStack.setCurrentIndex(7)
+
+    def OpenEditUser(self):
+        keyUser = PC.pc.auth.current_user['localId']
+        email = PC.pc.auth.current_user['email']
+        currentUser = PC.pc.db.child('users').child(keyUser).get()
+        print(currentUser.val())
+        self.editUser_ui.lineEdit_4.setText(email)
+        self.editUser_ui.lineEdit_5.setText(currentUser.val()['displayName'])
+        self.editUser_ui.dateEdit.setDate(QtCore.QDate(int(currentUser.val()['dateBirth'].split('/')[2]), int(currentUser.val()['dateBirth'].split('/')[1]), int(currentUser.val()['dateBirth'].split('/')[0])))
+        if currentUser.val()['gender'] == 'Feminino': gender = 0
+        else: gender = 1
+        self.editUser_ui.comboBox.setCurrentIndex(gender)
+        self.QtStack.setCurrentIndex(9)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

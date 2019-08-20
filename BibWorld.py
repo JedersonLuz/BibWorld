@@ -9,7 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from telas import telaAdd, Remover, telaEditar, telaEditForm, telaBuscar, telaVerLivro, loginWindows, telaAddUser
+from telas import telaAdd, Remover, telaEditar, telaEditForm, telaBuscar, telaVerLivro, loginWindows, telaAddUser, telaEditUser
 import sys
 
 
@@ -38,6 +38,18 @@ class Ui_MainWindow(object):
         MainWindow.setFixedSize(577, 502)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
+        self.button_editar_user = QtWidgets.QPushButton(self.centralwidget)
+        self.button_editar_user.setGeometry(QtCore.QRect(130, 250, 140, 30))
+        font = QtGui.QFont()
+        font.setFamily("KacstOne")
+        font.setBold(True)
+        font.setWeight(75)
+        self.button_editar_user.setFont(font)
+        self.button_editar_user.setObjectName("button_editar_user")
+        self.button_editar_user.setIcon(QtGui.QIcon('icons/search.png'))
+        self.button_editar_user.setIconSize(QtCore.QSize(24,24))
+        self.button_editar_user.setStyleSheet('background-color:#1f4c73')
 
         self.button_buscar = QtWidgets.QPushButton(self.centralwidget)
         self.button_buscar.setGeometry(QtCore.QRect(130, 290, 140, 30))
@@ -114,6 +126,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.button_buscar.setText(_translate("MainWindow", " Buscar livro"))
+        self.button_editar_user.setText(_translate('MainWindow', 'Editar Perfil'))
         self.button_editar.setText(_translate("MainWindow", " Editar livro"))
         self.button_add.setText(_translate("MainWindow", " Cadastrar livro"))
         self.button_remover.setText(_translate("MainWindow", " Remover livro"))
