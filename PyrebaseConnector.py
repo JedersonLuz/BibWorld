@@ -35,7 +35,7 @@ class PyrebaseConnector(object):
         self.storage = self.firebase.storage()
 
 
-    def is_connected(self, hostname="www.google.com"):
+    def is_connected(self, hostname="github.com"):
         try:
             # see if we can resolve the host name -- tells us if there is
             # a DNS listening
