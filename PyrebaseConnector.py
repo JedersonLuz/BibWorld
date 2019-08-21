@@ -94,8 +94,12 @@ class PyrebaseConnector(object):
     def changePassword(self, email):
         try:
             self.auth.send_password_reset_email(email)
+            return 'Ok'
         except Exception as e:
             print(e)
+            _error_json = e.args[1]
+            _error = json.loads(_error_json)['error']
+            return _error['message']
 
     # Register a book in database
     def createBook(self, ISBN, title, leadAuthor, numPages, pubDate, pathImg):

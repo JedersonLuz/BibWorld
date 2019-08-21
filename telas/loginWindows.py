@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'untitled.ui'
-#
-# Created by: PyQt5 UI code generator 5.13.0
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+import PyrebaseConnector as PC
 import sys
 
 class Ui_Form(object):
@@ -47,13 +40,21 @@ class Ui_Form(object):
         self.label_3.setScaledContents(True)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
+
+        self.pushButton_3 = QtWidgets.QPushButton(Form)
+        self.pushButton_3.setGeometry(QtCore.QRect(235, 340, 100, 31))
+        self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.setFont(font)
+        self.pushButton_3.setStyleSheet('background-color:#1f4c73')
+
         self.pushButton_2 = QtWidgets.QPushButton(Form)
-        self.pushButton_2.setGeometry(QtCore.QRect(280, 340, 171, 25))
+        self.pushButton_2.setGeometry(QtCore.QRect(350, 340, 100, 31))
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet('background-color:#1f4c73')
+
         self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setGeometry(QtCore.QRect(120, 340, 151, 25))
+        self.pushButton.setGeometry(QtCore.QRect(120, 340, 100, 31))
         self.pushButton.setObjectName("pushButton")
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet('background-color:#1f4c73')
@@ -64,11 +65,33 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+    def messageBox(self, textMessage, nameWin):
+        infoBox = QtWidgets.QMessageBox()
+        infoBox.setIcon(QtWidgets.QMessageBox.Information)
+        infoBox.setText(textMessage)
+        infoBox.setWindowTitle(nameWin)
+        infoBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+        infoBox.exec_()
+
+    def changePass(self):
+        erroVazio = 0
+        if self.lineEdit.text() == '':
+            self.messageBox('Você deve inserir seu email!', 'Erro')
+            erroVazio = 1
+        if erroVazio == 0:
+            response = PC.pc.changePassword(self.lineEdit.text())
+            if response == 'Ok':
+                self.messageBox('Enviamos um email para você com as instruções para cadastrar uma nova senha!', 'Alerta')
+            else:
+                self.messageBox('Email não existe!', 'Erro')
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "E-mail"))
         self.label_2.setText(_translate("Form", "Senha"))
+        self.pushButton_3.setText(_translate("Form", "Recuperar\nSenha"))
+        self.pushButton_3.clicked.connect(self.changePass)
         self.pushButton_2.setText(_translate("Form", "Cadastre-se"))
         self.pushButton.setText(_translate("Form", "Login"))
 

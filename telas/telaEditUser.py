@@ -74,8 +74,15 @@ class Ui_Form(object):
         self.comboBox.addItem('Feminino')
         self.comboBox.addItem('Masculino')
         self.verticalLayout.addWidget(self.comboBox)
+
+        self.buttonResetPass = QtWidgets.QPushButton(Form)
+        self.buttonResetPass.setObjectName('buttonResetPass')
+        self.buttonResetPass.setGeometry(QtCore.QRect(250, 410, 71, 31))
+        self.buttonResetPass.setStyleSheet('background-color:#1f4c73')
+        self.buttonResetPass.setFont(font)
+
         self.button_cadastrar = QtWidgets.QPushButton(Form)
-        self.button_cadastrar.setGeometry(QtCore.QRect(260, 410, 141, 29))
+        self.button_cadastrar.setGeometry(QtCore.QRect(330, 410, 71, 31))
         self.button_cadastrar.setStyleSheet('background-color:#1f4c73')
         font = QtGui.QFont()
         font.setFamily("KacstOne")
@@ -84,7 +91,7 @@ class Ui_Form(object):
         self.button_cadastrar.setFont(font)
         self.button_cadastrar.setObjectName("button_cadastrar")
         self.button_back = QtWidgets.QPushButton(Form)
-        self.button_back.setGeometry(QtCore.QRect(170, 410, 71, 29))
+        self.button_back.setGeometry(QtCore.QRect(170, 410, 71, 31))
         self.button_back.setStyleSheet('background-color:#1f4c73')
         font = QtGui.QFont()
         font.setFamily("KacstOne")
@@ -108,9 +115,15 @@ class Ui_Form(object):
         self.label_7.setText(_translate("Form", "Nome de usuário:"))
         self.label_5.setText(_translate("Form", "Data de nascimento:"))
         self.label_4.setText(_translate("Form", "Sexo:"))
-        self.button_cadastrar.setText(_translate("Form", "Concluir cadastro"))
+        self.button_cadastrar.setText(_translate("Form", "Salvar"))
         self.button_cadastrar.clicked.connect(self.UpdateUser)
+        self.buttonResetPass.setText(_translate('Form', 'Mudar\nsenha'))
+        self.buttonResetPass.clicked.connect(self.changePass)
         self.button_back.setText(_translate("Form", "Voltar"))
+
+    def changePass(self):
+        PC.pc.changePassword(PC.pc.auth.current_user['email'])
+        self.messageBox('Enviamos um email para você com as instruções para cadastrar uma nova senha!', 'Alerta')
 
     def messageBox(self, textMessage, nameWin):
         infoBox = QMessageBox()

@@ -164,13 +164,13 @@ class Add_Form(object):
         erroVazio = 0
         erroISBNExiste = 0
 
-        if PC.pc.searchBook_ISBN(self.lineISBN.text()):
-            self.messageBox('ISBN já existe!', 'Erro')
-            erroISBNExiste = 1
-
         if((self.lineISBN.text() == '') or (self.lineTitulo.text() == '') or (self.lineAutor.text() == '') or (self.lineNumPag.text() == '') or (self.fname == '')):
             self.messageBox("Todas os campos devem ser preenchidos!", "Campos obrigatórios")
             erroVazio = 1
+
+        if (PC.pc.searchBook_ISBN(self.lineISBN.text())) and (erroVazio == 0):
+            self.messageBox('ISBN já existe!', 'Erro')
+            erroISBNExiste = 1
 
         if((erroISBN == 0) and (erroVazio == 0) and (erroISBNExiste == 0)):
             try:

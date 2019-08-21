@@ -44,7 +44,6 @@ class Edit_Form(object):
         font.setWeight(75)
         self.button_cadastrar.setFont(font)
         self.button_cadastrar.setObjectName("button_cadastrar")
-        self.button_cadastrar.clicked.connect(self.registerBook)
         self.button_cadastrar.setStyleSheet('background-color:#1f4c73')
         #self.button_cadastrar.setStyleSheet('font-color:white;')
         self.widget = QtWidgets.QWidget(Form)
@@ -157,35 +156,3 @@ class Edit_Form(object):
         infoBox.setWindowTitle(nameWin)
         infoBox.setStandardButtons(QMessageBox.Ok)
         infoBox.exec_()
-
-    def registerBook(self):
-        # print(self.fname)
-        erroNum = 0
-        erroISBN = 0
-        erroVazio = 0
-
-        if((self.lineISBN.text() == '') or (self.lineTitulo.text() == '') or (self.lineAutor.text() == '') or (self.lineNumPag.text() == '') or (self.fname == '')):
-            self.messageBox("Todas os campos devem ser preenchidos!", "Campos obrigatórios")
-            erroVazio = 1
-
-        if((erroISBN == 0) and (erroVazio == 0)):
-            try:
-                int(self.lineISBN.text())
-            except:
-                self.messageBox("O ISBN é um campo de números! Tente novamente!", "Erro")
-                erroNum = 1
-
-        if(erroNum == 0 and (erroISBN == 0) and (erroVazio == 0)):
-            try:
-                int(self.lineNumPag.text())
-            except:
-                self.messageBox("Número de páginas inválido! Tente novamente!", "Erro")
-                erroNum = 1
-
-        if((erroISBN == 0) and (erroNum == 0) and (erroVazio == 0)):
-            PC.pc.updateBook(self.lineISBN.text(), self.lineTitulo.text(), self.lineAutor.text(), self.lineNumPag.text(), self.dateEdit.text(), self.fname)
-            self.messageBox("Alterações salvas com sucesso!", "Confirmação de alteração")
-            self.lineISBN.setText('')
-            self.lineTitulo.setText('')
-            self.lineAutor.setText('')
-            self.lineNumPag.setText('')
