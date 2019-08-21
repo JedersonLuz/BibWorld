@@ -146,8 +146,7 @@ class Edit_Form(object):
         self.button_escolher.setText(_translate("Form", " Escolher imagem de capa"))
 
     def openFileNameDialog(self):
-        self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png)")
-        # print(fname)
+        self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.jpeg *.gif *.png)")
 
     def messageBox(self, textMessage, nameWin):
         infoBox = QMessageBox()

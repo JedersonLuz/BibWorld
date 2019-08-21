@@ -87,7 +87,7 @@ class Main(QMainWindow, Ui_Main):
         self.edit_ui.botao_voltar.clicked.connect(self.OpenMainWindow)
         self.edit_ui.botao_editar.clicked.connect(self.OpenEditFormWindows)
         self.edit_form_ui.button_cadastrar.clicked.connect(self.editBook)
-        self.edit_form_ui.button_voltar.clicked.connect(self.OpenEditWindow)
+        self.edit_form_ui.button_voltar.clicked.connect(self.BackEdit)
 
         self.main_ui.buttonSearch.clicked.connect(self.OpenBuscarWindow)
         self.search_ui.botao_voltar.clicked.connect(self.OpenMainWindow)
@@ -215,6 +215,7 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(6)
 
     def OpenReadWindow(self):
+        self.flagEdit = 7
         erroVazio = 0
         if(self.search_ui.lineEdit.text() == ''):
             self.edit_ui.messageBox('Campo obrigatório!', 'Erro')
@@ -241,7 +242,6 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(9)
 
     def editBook(self):
-        # print(self.fname)
         erroNum = 0
         erroISBN = 0
         erroVazio = 0
@@ -273,6 +273,8 @@ class Main(QMainWindow, Ui_Main):
             self.edit_form_ui.lineNumPag.setText('')
             self.QtStack.setCurrentIndex(self.flagEdit)
             
+    def BackEdit(self):
+        self.QtStack.setCurrentIndex(self.flagEdit)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

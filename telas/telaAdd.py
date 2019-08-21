@@ -147,7 +147,6 @@ class Add_Form(object):
 
     def openFileNameDialog(self):
         self.fname, _ = QtWidgets.QFileDialog.getOpenFileName(None, 'Open file', '',"Image files (*.jpg *.gif *.png *.jpeg)")
-        # print(fname)
 
     def messageBox(self, textMessage, nameWin):
         infoBox = QMessageBox()
@@ -158,7 +157,6 @@ class Add_Form(object):
         infoBox.exec_()
 
     def registerBook(self):
-        # print(self.fname)
         erroNum = 0
         erroISBN = 0
         erroVazio = 0

@@ -26,8 +26,6 @@ class Ui_RemoveWindow(object):
 
         count = 1
         for book in bookList:
-            # print(bookList[book])
-            # print(bookList[book]['ISBN'], bookList[book]['title'])
             self.table.setItem(count, 0, QtWidgets.QTableWidgetItem(str(bookList[book]['ISBN'])))
             self.table.setItem(count, 1, QtWidgets.QTableWidgetItem(bookList[book]['title']))
             count+=1
@@ -66,11 +64,8 @@ class Ui_RemoveWindow(object):
         font.setWeight(75)
         self.table.setFont(font)
         
-        # print(bookList['9788534525640'])
         count = 1
         for book in bookList:
-            # print(bookList[book])
-            # print(bookList[book]['ISBN'], bookList[book]['title'])
             self.table.setItem(count, 0, QtWidgets.QTableWidgetItem(str(bookList[book]['ISBN'])))
             self.table.setItem(count, 1, QtWidgets.QTableWidgetItem(bookList[book]['title']))
             count+=1
@@ -121,7 +116,6 @@ class Ui_RemoveWindow(object):
             if removido == 1:
                 self.updateTable()
                 self.messageBox('O livro com o ISBN de número {} foi removido.'.format(self.lineEdit.text()), 'Confimação')
-                print('O livro com o ISBN de número {} foi removido.'.format(self.lineEdit.text()))
                 self.lineEdit.setText('')
             else:
                 self.messageBox('ISBN não encontrado.'.format(self.lineEdit.text()), 'Erro ao remover')

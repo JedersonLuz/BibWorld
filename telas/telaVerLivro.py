@@ -18,6 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(577, 502)
+        MainWindow.setFixedSize(577, 502)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -94,14 +95,10 @@ class Ui_MainWindow(object):
         self.button_back.setText(_translate("MainWindow", "Voltar"))
 
     def UpdateTable(self):
-        # print(self.book)
-        
         PC.pc.storage.child('images/books/'+str(self.book['ISBN'])).download('images/'+str(self.book['ISBN']))
         typeFile = imghdr.what('images/'+str(self.book['ISBN']))
-        print(typeFile)
         os.rename('images/'+str(self.book['ISBN']), 'images/'+str(self.book['ISBN'])+'.'+typeFile)
         fileName = 'images/'+str(self.book['ISBN'])+'.'+typeFile
-        print(fileName)
         self.label.setPixmap(QtGui.QPixmap(fileName))
 
         self.table.setItem(0, 1, QtWidgets.QTableWidgetItem(str(self.book['title'])))
