@@ -23,7 +23,7 @@ Inicialmente, realize o download da versão mais recente do projeto pelo nosso [
 
 Para inicializar o sistema, execute a classe principal do projeto, através do comando:
 
-    python3 stackmainwindow.py
+    python3 stackedMainWindow.py
 
 A primeira tela exibida pelo sistema é a tela de login, responsável por realizar a autenticação do usuário e permitir seu acesso à aplicação. Caso o usuário ainda não possua uma conta, poderá efetuar seu cadastro ao pressionar o botão "Cadastre-se".
 
